@@ -1,26 +1,69 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #8f9765;
+  --secondbackground: #cdc6c3;
+}
+@theme {
+  --color-primary: #8f9765;
+  --color-card: #e6e9d3;
+  --color-button: #d7dcbe;
+  --color-primarytext: #000004;
+  --color-secondarytext: #f6f6f6;
+  --color-btn: #d7d3d1;
+  --black-dark: #00000050;
+  --color-dull-white: #ffffffb3;
+  --color-white-light: #ffffff30;
+  --color-white-medium: #ffffff40;
+  --color-neon-blue: #2fb8ff;
+  --color-primary-foreground: #F6F6F6;
+  --color-secondary-foreground: #000004;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+}
+body {
+  background-color: #8f9765;
+  color: var(--color-primarytext);
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+/* INPUTS */
+@layer components {
+  .btn {
+    @apply hover:bg-[#cfcac8] bg-[#D7D3D1] w-full h-10 rounded-full text-lg font-medium min-h-10;
+  }
+
+  .wrapper {
+    width: min(100%, 960px);
+    @apply mx-auto flex items-center justify-center  bg-black/50 px-4 rounded-2xl p-5 flex-col py-10;
+  }
+  .icon {
+    @apply absolute top-[1.1rem] left-[0.8rem] bg-white-medium rounded-full p-2 flex items-center justify-center w-[2.2rem] h-[2.3rem];
+  }
+  .input {
+    @apply w-80 rounded-full bg-white-light focus:bg-black/50 focus:outline-none focus:ring-1 focus:ring-neon-blue focus:drop-shadow-lg px-12;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    @apply flex items-center justify-center h-screen;
+  }
+  input {
+    @apply px-3 py-2;
+  }
 }
