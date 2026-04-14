@@ -7,7 +7,7 @@ export interface User {
   caregiver_name?: string;
   email: string;
   password: string;
-  // created_at: string,
+  
 }
 
 export interface Device {
@@ -41,8 +41,6 @@ export type registeredUser = {
   password: string;
 };
 
-
-
 export interface Medication {
   id_module: string;
   pill_name: string;
@@ -57,12 +55,10 @@ export interface Medication {
 
 export type WizardStep = "insert" | "detected" | "details" | "save";
 
-
 export type ActionState = {
   error?: string;
   success?: boolean;
 } | null;
-
 
 export interface AddMedicationWizardProps {
   onSaveSuccess: (modules: Medication[]) => void;
