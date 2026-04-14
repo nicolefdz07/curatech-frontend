@@ -1,35 +1,56 @@
-import checkDevice from "@/app/actions/checkDevice";
-import { useEffect, useState } from "react";
+"use client"; 
+
+import { API_BASE } from "@/components/constants";
+import { getCookie } from "cookies-next"; 
+import { useCallback, useEffect, useState } from "react";
 
 export default function useGetDeviceId() {
-
   const [deviceId, setDeviceId] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
+  const refreshDevice = useCallback(async () => {
+    setIsLoading(true);
+    const idFromCookie = getCookie("id_device")?.toString();
+    
 
-  
-
-    const fetchDeviceId = async ()=>{
-      try {
-        const { id_device} = await checkDevice();
-        if(id_device) {
-          setDeviceId(id_device);
-  
-        }
-      } catch (error) {
-        console.error("Error checking device ID:", error);
-      }
+    if (!idFromCookie) {
+      setDeviceId(null);
+      setIsLoading(false);
+      return;
     }
 
-    useEffect(() => {
-    (async () => {
-      await fetchDeviceId();
-    })();
+
+    try {
+      console.log(`2. URL a buscar: ${API_BASE}/module/get/${idFromCookie}`); 
+      const res = await fetch(`${API_BASE}/module/get/${idFromCookie}`, {
+        cache: "no-store",
+      });
+      
+
+      
+      if (res.status === 404 || res.ok) {
+        setDeviceId(idFromCookie); 
+        return;
+      }
+
+
+  
+  
+
+      setDeviceId(null);
+
+    } catch (error) {
+      setDeviceId(null);
+      console.error("4. ERROR DE RED O CORS:", error); // 
+    }finally{
+      setIsLoading(false);
+    }
   }, []);
 
-  return {
-    deviceId,
-    setDeviceId,
-    refreshDevice: fetchDeviceId
-  };
-  }
-  
+  useEffect(() => {
+    refreshDevice();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return { deviceId, refreshDevice , isLoading};
+}

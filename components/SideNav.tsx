@@ -11,7 +11,6 @@ import {
   Settings,
 } from "lucide-react";
 import { SideBarItem } from "./UI/SideBarItem";
- 
 
 export const sideBarContext = createContext<{ expanded: boolean }>({
   expanded: true,
@@ -51,6 +50,7 @@ export default function SideNav() {
               icon={<BriefcaseMedical />}
               active={pathname === "/dashboard/medication_schedule"}
             />
+
             <SideBarItem
               href="/dashboard/device"
               text="Device Settings"
@@ -58,23 +58,7 @@ export default function SideNav() {
               active={pathname === "/dashboard/device"}
             />
           </ul>
-          {/* <LogOutButton /> */}
         </sideBarContext.Provider>
-        {/* <div className="mt-auto border-t p-3">
-          <div className="flex items-center gap-3 overflow-hidden">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-indigo-200 text-sm font-bold text-indigo-700">
-              LU
-            </div>
-            <div
-              className={`overflow-hidden transition-all ${expanded ? "ml-0 w-40" : "w-0"}`}
-            >
-              <div className="leading-4">
-                <h4 className="font-semibold">Logged In user</h4>
-                <span className="text-xs text-gray-600">user@example.com</span>
-              </div>
-            </div>
-          </div>
-        </div> */}
       </nav>
     </aside>
   );

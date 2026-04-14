@@ -1,5 +1,5 @@
 export interface User {
-  // id_user: string;
+  id_user?: string;
   patient_first_name: string;
   patient_last_name: string;
   patient_birth_date: string;
@@ -47,7 +47,7 @@ export interface Medication {
   id_module: string;
   pill_name: string;
   dosage: string;
-  dose_times: string;
+  dose_times: [string];
   daily_qty: number;
   pillsRemaining: number;
   id_device: string;
@@ -63,7 +63,7 @@ export type ActionState = {
   success?: boolean;
 } | null;
 
-// 1. Agrega la interfaz para recibir onSaveSuccess
+
 export interface AddMedicationWizardProps {
   onSaveSuccess: (modules: Medication[]) => void;
   currentCount: number; //

@@ -49,22 +49,22 @@ export function AddMedicationWizard({
     daily_qty: "1",
   });
 
-  // Añade un nuevo input de hora al arreglo
+  // funcion para añadir una hora mas
   const handleAddTime = () => {
     setFormData((prev) => ({
       ...prev,
-      time: [...prev.time, "12:00"], // Por defecto pone las 12:00
+      time: [...prev.time, "12:00"],  
     }));
   };
 
-  // Actualiza la hora específica que el usuario está modificando
+  // esta funcion Actualiza la hora que el usuario está modificando
   const handleTimeChange = (index: number, newTime: string) => {
     const newTimes = [...formData.time];
     newTimes[index] = newTime;
     setFormData((prev) => ({ ...prev, time: newTimes }));
   };
 
-  // Borra una hora específica (siempre y cuando haya más de una)
+  // esta funcionBorra una hora específica 
   const handleRemoveTime = (index: number) => {
     if (formData.time.length > 1) {
       setFormData((prev) => ({
@@ -74,7 +74,7 @@ export function AddMedicationWizard({
     }
   };
 
-  const nextSlot = currentCount + 1;
+  const nextSlot = currentCount ; 
 
   // Estado para controlar el modal
   const [modalConfig, setModalConfig] = useState({
@@ -100,7 +100,7 @@ export function AddMedicationWizard({
     },
   });
 
-  //  1: Polling del Hardware (Paso 1  )
+  //  Función para iniciar la detección del módulo, llamada al endpoint de detección
   const handleStartDetection = async () => {
     setIsDetecting(true);
 
@@ -136,7 +136,7 @@ export function AddMedicationWizard({
 
   //  ENDPOINT DE UPDATE PARA GUARDAR LA MEDICACION EN LA BASE DE DATOS, ASOCIADA AL ID DEL MÓDULO DETECTADO
   const handleSave = async () => {
-    // 1. validation of servo_id
+    
     if (!detectedServoId) {
       setModalConfig({
         isOpen: true,
@@ -155,7 +155,7 @@ export function AddMedicationWizard({
       pill_name: formData.name,
       dosage: formData.dosage,
       dose_times: formData.time,
-      daily_qty: parseInt(formData.daily_qty) || 1, //
+      daily_qty: parseInt(formData.daily_qty) || 1, 
       notes: formData.notes,
       status: "TAKEN",
     };
@@ -174,9 +174,11 @@ export function AddMedicationWizard({
         title: "Save Successful",
         message: "Medication saved successfully.",
         isError: false,
-        onAccept: closeModal,
+        onAccept: () => {
+          closeModal();
+          handleClose();
+        },
       });
-      handleClose();
     } else {
       setModalConfig({
         isOpen: true,
@@ -363,28 +365,11 @@ export function AddMedicationWizard({
                 </div>
               </div>
               <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
-                {/* <div className="space-y-2">
-                  <Label htmlFor="med-time" className="text-card-foreground">
-                    Scheduled Time
-                  </Label>
-                  <Input
-                    id="med-time"
-                    type="time"
-                    value={formData.time}
-                    onChange={(e) =>
-                      setFormData((prev) => ({ ...prev, time: e.target.value }))
-                    }
-                    className="border-border bg-background"
-                  />
-                </div> */}
-
-                {/* INICIO DE SECCIÓN DE HORARIOS DINÁMICOS */}
                 <div className="space-y-3 sm:col-span-2">
                   <Label className="text-card-foreground">
                     Scheduled Times
                   </Label>
 
-                  {/* Mapeamos el arreglo para renderizar un Input por cada hora */}
                   {formData.time.map((timeValue, index) => (
                     <div key={index} className="flex items-center gap-2">
                       <Input
@@ -396,7 +381,6 @@ export function AddMedicationWizard({
                         className="border-border bg-background flex-1"
                       />
 
-                      {/* Botón de borrar (solo se muestra si hay más de 1 hora) */}
                       {formData.time.length > 1 && (
                         <Button
                           type="button"
@@ -411,19 +395,20 @@ export function AddMedicationWizard({
                     </div>
                   ))}
 
-                  {/* Botón para añadir otra hora */}
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={handleAddTime}
-                    className="mt-2 w-full border-dashed"
-                  >
-                    <Plus className="mr-2 h-4 w-4" />
-                    Add another time
-                  </Button>
+              
+                  {formData.time.length < 2 && (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={handleAddTime}
+                      className="mt-2 w-full border-dashed"
+                    >
+                      <Plus className="mr-2 h-4 w-4" />
+                      Add another time
+                    </Button>
+                  )}
                 </div>
-                {/* FIN DE SECCIÓN DE HORARIOS DINÁMICOS */}
 
                 {/* daily quantity */}
                 <div className="space-y-2">

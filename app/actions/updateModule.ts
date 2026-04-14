@@ -54,7 +54,7 @@ export default async function updateModule(
       }
     }
 
-    // const data = await response.json();
+    
 
     // reload page to show new medication
     revalidatePath("dashboard/medication_schedule");
@@ -65,7 +65,7 @@ export default async function updateModule(
     };
   } catch (error) {
      
-    console.error("❌ Error de conexión:", error);
+    console.error("Conection Error:", error);
     return {
       success: false,
       error: "Network error: Could not reach the server.",

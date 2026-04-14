@@ -10,7 +10,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
   const cookieStore = cookies();
   const userDataString = (await cookieStore).get("user")?.value;
 
-  // 2. we parse the cookie to get the user data
+  
   const user = userDataString ? JSON.parse(userDataString) : null;
   
   

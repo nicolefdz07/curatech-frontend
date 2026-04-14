@@ -14,6 +14,8 @@ export default async function signin(prevState: ActionState,
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
+  
+
   if (!email || !password) {
     throw new Error("Missing required fields");
   }
@@ -58,18 +60,28 @@ export default async function signin(prevState: ActionState,
       maxAge: 60 * 60 * 24 * 7,
     });
 
-    // 3. Guardamos los datos del USUARIO para usarlos en el diseño (Header, Perfil, etc.)
-    // Como las cookies solo guardan texto, convertimos el objeto a un string (JSON.stringify)
+    // 3. Guardamos los datos del USUARIO en cookie (sin el password) 
     cookieStore.set("user", JSON.stringify(data.user), {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       path: "/",
-      maxAge: 60 * 60 * 24 * 7,
+      maxAge: 60 * 60 * 24 * 7, // 7 días
     });
+
+    // se Guarda el id_device en cookie
+    if (data.id_device) {
+      cookieStore.set("id_device", data.id_device, {
+        httpOnly: false, 
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        path: "/",
+        maxAge: 60 * 60 * 24 * 7, 
+      });
+    }
   } catch (error) {
     console.error("Error en login:", error);
-    
+    return { error: "Failed to log in user" };
   }
 
   // Si el login es exitoso, redirigimos al usuario al dashboard

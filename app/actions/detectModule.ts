@@ -42,7 +42,7 @@ export default async function detectModule(status: string) {
       return { success: false, error: "An error occurred while detecting the module." };
     }
 
-    // successfully detected a module
+    
     const data = await response.json();
     return { success: true, data: data };
 

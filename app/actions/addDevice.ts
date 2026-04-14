@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 
 export default async function addDevice(serialNumber: string) {
 
-  // extraer id
+  
   const cookieStore = cookies();
   const userDataString = (await cookieStore).get("user")?.value;
 
@@ -15,7 +15,7 @@ export default async function addDevice(serialNumber: string) {
   }
 
   const user = JSON.parse(userDataString);
-  const idUser = user.id_user; //extract id_user from signin
+  const idUser = user.id_user; 
 
   try {
     // post request to add device
@@ -40,7 +40,7 @@ export default async function addDevice(serialNumber: string) {
     (await
       // Guardamos el id_device en una cookie
       cookieStore).set("id_device", data.id_device, {
-      httpOnly: true,
+      httpOnly: false, 
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       path: "/",
