@@ -69,12 +69,7 @@ export default async function signin(prevState: ActionState,
     });
   } catch (error) {
     console.error("Error en login:", error);
-    // Aquí manejarías el error visualmente
-    // return {
-    //   error:
-    //     error instanceof Error ? error.message : "Fallo el inicio de sesión",
-    // };
-    // return { error: "Fallo el inicio de sesión" };
+    
   }
 
   // Si el login es exitoso, redirigimos al usuario al dashboard

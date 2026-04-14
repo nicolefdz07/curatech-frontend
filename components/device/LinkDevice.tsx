@@ -5,7 +5,9 @@ import { useState } from "react";
 import { Button } from "../UI/Button";
 import { Modal } from "../UI/Modal";
 
-export default function LinkDevice() {
+export default function LinkDevice(
+  { onSuccess }: { onSuccess: () => void }
+) {
   const [serialNumber, setSerialNumber] = useState("");
   const [isPending, setIsPending] = useState(false);
 
@@ -41,8 +43,12 @@ export default function LinkDevice() {
         title: "Failed to Link Device",
         message: `Failed to link device: ${result.error}`,
         isError: true,
-        onAccept: closeModal,
+        onAccept: () => {
+          closeModal();
+          onSuccess();
+        },
       });
+       
     }
   };
 
@@ -87,7 +93,7 @@ export default function LinkDevice() {
             onClick={handleSubmit}
             disabled={isPending || !serialNumber}
         
-            className="w-full sm:w-auto"
+            className="w-full sm:w-auto cursor-pointer"
           >
             {isPending ? "Linking..." : "Link Device"}
           </Button>

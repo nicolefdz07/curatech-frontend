@@ -2,7 +2,6 @@
 import { API_BASE } from "@/components/constants";
 import { User } from "@/types/tipos";
 import toHash from "@/utils/helperFunctions";
-import { randomUUID } from "crypto";
 import { redirect } from "next/navigation";
 
 export default async function signup(formData: FormData) {

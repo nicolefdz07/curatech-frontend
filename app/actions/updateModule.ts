@@ -54,7 +54,7 @@ export default async function updateModule(
       }
     }
 
-    const data = await response.json();
+    // const data = await response.json();
 
     // reload page to show new medication
     revalidatePath("dashboard/medication_schedule");

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 type MedicationFormData = {
   name: string;
   dosage: string;
-  time: string;
+  time: string[];
   notes: string;
   daily_qty: string;
 };
@@ -27,9 +27,10 @@ export function useMedicationForm({
       setFormData({
         name: initialdata.pill_name,
         dosage: initialdata.dosage,
-        time: Array.isArray(initialdata.dose_times)
-          ? (initialdata.dose_times[0] ?? "08:00")
-          : initialdata.dose_times,
+        
+        time: Array.isArray(initialdata.dose_times) && initialdata.dose_times.length > 0
+          ? initialdata.dose_times
+          : ["08:00"],
         notes: initialdata.notes || "",
         daily_qty: String(initialdata.daily_qty),
       });

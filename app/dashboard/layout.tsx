@@ -1,5 +1,5 @@
 import LogOutButton from "@/components/LogOutButton";
-import SideNav from "@/components/SideNav";
+import SideNav from  "@/components/SideNav";
 import { LogOut } from "lucide-react";
 import { cookies } from "next/headers";
 

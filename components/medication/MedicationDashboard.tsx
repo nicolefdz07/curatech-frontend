@@ -31,7 +31,7 @@ export default function MedicationDashboard({
 
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 overflow-hidden">
       <h1 className="text-3xl font-bold">Medication Schedule</h1>
 
       <AddMedicationWizard 

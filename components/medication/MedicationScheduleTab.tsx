@@ -13,7 +13,7 @@ export default function MedicationScheduleTab({ medications,
 ) {
   return (
     <>
-      <h2 className="mb-4 text-xl font-semibold text-card">
+      <h2 className="mb-4 text-xl font-semibold text-primary">
         Your Medications
         ({medications.length})
       </h2>

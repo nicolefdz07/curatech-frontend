@@ -2,7 +2,6 @@ import Link from "next/link";
 import { ReactNode, useContext } from "react";
 import { sideBarContext } from "../SideNav";
 
-
 export type SideBarItemProps = {
   href: string;
   icon: ReactNode;
@@ -21,15 +20,10 @@ export function SideBarItem({
   const { expanded } = useContext(sideBarContext);
 
   return (
-
-     
-
     <Link
       href={href}
       className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md text-primary-foregroundcursor-pointer transition-colors group ${
-        active
-          ? "bg-primary  text-primary-foreground "
-          : "hover:bg-primary/10 "
+        active ? "bg-primary  text-primary-foreground " : "hover:bg-primary/10 "
       }`}
     >
       {icon}

@@ -14,7 +14,7 @@ export default function LogOutButton() {
       variant="ghost" 
       onClick={handleLogout}
       
-      className=" justify-start text-muted-foreground hover:text-destructive hover:bg-destructive/10 cursor-pointer"
+      className=" justify-end text-muted-foreground hover:text-destructive hover:bg-destructive/10 cursor-pointer"
     >
       <LogOut className="w-4 h-4" />
       Log Out
