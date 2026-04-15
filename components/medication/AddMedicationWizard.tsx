@@ -216,10 +216,11 @@ export function AddMedicationWizard({
     return (
       <Button
         onClick={() => setIsOpen(true)}
+        disabled={currentCount >= 2}
         className="bg-card text-black hover:bg-primary/90 cursor-pointer"
       >
         <Plus className="mr-2 h-4 w-4" />
-        Add Medication
+        {currentCount >= 2 ? "Limit Reached" : "Add Medication"}
       </Button>
     );
   }
