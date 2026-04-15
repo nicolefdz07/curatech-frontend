@@ -30,6 +30,8 @@ if (isLoading) {
           title="Device Linked Successfully"
           description={`Your CuraTech dispenser (ID: ${deviceId}) is connected and ready to use.`}
         />
+
+        
       ) : showForm ? (
         
         <div className="flex flex-col items-start gap-4">

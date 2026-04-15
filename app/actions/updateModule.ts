@@ -35,18 +35,14 @@ export default async function updateModule(
       body: JSON.stringify(payload),
     });
 
-     
     if (!response.ok) {
-       
       const errorDetail = await response.text();
       console.error("🚨 Error desde FastAPI Terminal:", errorDetail);
 
       try {
-         
         const errorJson = JSON.parse(errorDetail);
         return { success: false, error: errorJson.detail || "Server error" };
       } catch {
-        
         return {
           success: false,
           error: `Backend Error: ${response.statusText}`,
@@ -54,17 +50,13 @@ export default async function updateModule(
       }
     }
 
-    
-
     // reload page to show new medication
     revalidatePath("dashboard/medication_schedule");
 
-     
     return {
       success: true,
     };
   } catch (error) {
-     
     console.error("Conection Error:", error);
     return {
       success: false,

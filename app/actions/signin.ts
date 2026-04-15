@@ -6,15 +6,12 @@ import toHash from "@/utils/helperFunctions";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export default async function signin(prevState: ActionState, 
-  formData: FormData      
-): Promise<ActionState> 
-
-{ 
+export default async function signin(
+  prevState: ActionState,
+  formData: FormData,
+): Promise<ActionState> {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
-
-  
 
   if (!email || !password) {
     throw new Error("Missing required fields");
@@ -28,7 +25,6 @@ export default async function signin(prevState: ActionState,
   };
 
   try {
-    
     const response = await fetch(`${API_BASE}/auth/login`, {
       method: "POST",
       headers: {
@@ -42,10 +38,8 @@ export default async function signin(prevState: ActionState,
       try {
         const errorData = await response.json();
         errorMessage = errorData?.detail || errorData?.message || errorMessage;
-      } catch {
+      } catch {}
 
-      }
-      
       return { error: errorMessage };
     }
 
@@ -60,7 +54,7 @@ export default async function signin(prevState: ActionState,
       maxAge: 60 * 60 * 24 * 7,
     });
 
-    // 3. Guardamos los datos del USUARIO en cookie (sin el password) 
+    // 3. Guardamos los datos del USUARIO en cookie (sin el password)
     cookieStore.set("user", JSON.stringify(data.user), {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -72,11 +66,11 @@ export default async function signin(prevState: ActionState,
     // se Guarda el id_device en cookie
     if (data.id_device) {
       cookieStore.set("id_device", data.id_device, {
-        httpOnly: false, 
+        httpOnly: false,
         secure: process.env.NODE_ENV === "production",
         sameSite: "lax",
         path: "/",
-        maxAge: 60 * 60 * 24 * 7, 
+        maxAge: 60 * 60 * 24 * 7,
       });
     }
   } catch (error) {

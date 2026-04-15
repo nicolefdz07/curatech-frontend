@@ -35,7 +35,7 @@ return (
         <div className="flex items-center gap-2 text-sm">
           <Clock className="h-4 w-4 text-primary" />
           <span className="text-card-foreground">
-            {medication.dose_times.join(", ")} daily
+            {medication.dose_times?.join(", ")} daily
           </span>
         </div>
 
